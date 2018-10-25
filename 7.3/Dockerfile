@@ -44,6 +44,16 @@ RUN set -x \
     && rm sonarqube.zip* \
     && rm -rf $SONARQUBE_HOME/bin/*
 
+#
+# Update plugins
+#
+WORKDIR "$SONARQUBE_HOME/extensions/plugins"
+RUN set -x \
+     && ls -l \
+     && rm sonar-java-plugin-* \
+     && wget https://binaries.sonarsource.com/Distribution/sonar-java-plugin/sonar-java-plugin-5.8.0.15699.jar \
+     && wget https://binaries.sonarsource.com/Distribution/sonar-jacoco-plugin/sonar-jacoco-plugin-1.0.1.143.jar
+
 VOLUME "$SONARQUBE_HOME/data"
 
 WORKDIR $SONARQUBE_HOME
